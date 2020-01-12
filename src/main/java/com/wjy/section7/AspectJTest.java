@@ -1,5 +1,7 @@
 package com.wjy.section7;
 
+import com.alibaba.fastjson.JSON;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
@@ -23,6 +25,12 @@ public class AspectJTest {
         System.out.println("proceedingJoinPoint before ......");
         proceedingJoinPoint.proceed();
         System.out.println("proceedingJoinPoint after ......");
+    }
+
+    @AfterReturning("pointcut()")
+    public void afterReturning(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        System.out.println(JSON.toJSONString(args));
     }
 
 
