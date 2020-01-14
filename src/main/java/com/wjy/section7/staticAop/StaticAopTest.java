@@ -1,6 +1,5 @@
 package com.wjy.section7.staticAop;
 
-import com.wjy.section7.AspectJTest;
 import com.wjy.section7.TestBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

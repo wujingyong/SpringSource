@@ -30,7 +30,7 @@ public class AspectJTest {
     @AfterReturning("pointcut()")
     public void afterReturning(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
-        System.out.println(JSON.toJSONString(args));
+        System.out.println("args：" + JSON.toJSONString(args));
     }
 
 
