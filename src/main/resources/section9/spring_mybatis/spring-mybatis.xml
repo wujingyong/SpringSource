@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://47.99.65.136:3306/springSource?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true" />
+        <property name="username" value="root" />
+        <property name="password" value="Ndzm2mgavA1H6Io4" />
+        <property name="initialSize" value="1" />
+        <property name="maxTotal" value="300" />
+        <property name="maxIdle" value="2" />
+        <property name="minIdle" value="1" />
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:section9/spring_mybatis/mybatis-config.xml" />
+<!--        <property name="mapperLocations" value="section9/*Mapper.xml" />-->
+    </bean>
+
+<!--  一个一个mapper配置的方法  -->
+<!--    <bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="mapperFactoryBean">-->
+<!--        <property name="mapperInterface" value="com.wjy.section9.UserMapper" />-->
+<!--        <property name="sqlSessionFactory" ref="sqlSessionFactory" />-->
+<!--    </bean>-->
+
+<!--  包扫描  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" id="mapperScannerConfigurer">
+<!--        <property name="basePackage" value="com.wjy.section9" />-->
+        <!--    采用properties配置文件的形式注入，
+        由于mapperScannerConfigurer加载postProcessBeanDefinitionRegistry时，properties文件还没有被加载，
+        所以需要手动配置properties, 要将processPropertyPlaceHolders设置为true, 并配置PropertyPlaceholderConfigurer属性
+            -->
+        <property name="basePackage" value="${basePackage}" />
+        <property name="processPropertyPlaceHolders" value="true" />
+    </bean>
+    <bean id="placeholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>section9/spring_mybatis/config.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>
